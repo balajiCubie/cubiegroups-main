@@ -6,13 +6,13 @@ import { MotionFooter, MotionDiv } from './motion-components';
 const Footer = () => {
   const footerVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.5,
-        staggerChildren: 0.1 
-      } 
+        staggerChildren: 0.1
+      }
     }
   };
 
@@ -22,7 +22,7 @@ const Footer = () => {
   };
 
   return (
-    <MotionFooter 
+    <MotionFooter
       className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300"
       initial="hidden"
       animate="visible"
@@ -40,8 +40,7 @@ const Footer = () => {
               <span className="text-lg font-semibold text-gray-900 dark:text-white transition-colors duration-300">Cubie Group's</span>
             </Link>
             <p className="text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300">
-              A simple and elegant blog inspired by Google's design aesthetic.
-              Share your thoughts, ideas, and stories with the world.
+              Building a modular future across tech, hardware, and creative industries.
             </p>
           </MotionDiv>
 
@@ -101,10 +100,10 @@ const Footer = () => {
             </ul>
           </MotionDiv>
         </div>
-        
+
         <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
           <p className="text-sm text-gray-500 dark:text-gray-400 text-center transition-colors duration-300">
-            &copy; {new Date().getFullYear()} BlogPost. All rights reserved.
+            &copy; {new Date().getFullYear()} Cubie Group. All rights reserved.
           </p>
         </div>
       </div>

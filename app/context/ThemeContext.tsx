@@ -15,68 +15,66 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
-  const isDarkMode = theme === 'dark';
+  const [mounted, setMounted] = useState(false);
 
-  // Function to actively check if dark mode is applied correctly
-  const checkDarkMode = (): boolean => {
-    const htmlHasDarkClass = document.documentElement.classList.contains('dark');
-    const storedThemeIsDark = localStorage.getItem('theme') === 'dark';
-    return htmlHasDarkClass && storedThemeIsDark && theme === 'dark';
-  };
-
-  // Apply theme on initial load
   useEffect(() => {
-    // Check if theme preference is stored in localStorage
+    setMounted(true);
+
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     if (savedTheme) {
       setTheme(savedTheme);
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
     } else if (prefersDark) {
       setTheme('dark');
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
     }
-
-    // Force CSS transition to happen after initial page load
-    setTimeout(() => {
-      document.documentElement.classList.add('theme-transition-ready');
-    }, 100);
   }, []);
 
-  // Watch for system preference changes
   useEffect(() => {
+    if (mounted) {
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, mounted]);
+
+  const isDarkMode = theme === 'dark';
+
+  const checkDarkMode = (): boolean => {
+    if (!mounted) return false;
+    const htmlHasDarkClass = document.documentElement.classList.contains('dark');
+    const storedThemeIsDark = localStorage.getItem('theme') === 'dark';
+    return htmlHasDarkClass && storedThemeIsDark && isDarkMode;
+  };
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      if (mounted) {
+        localStorage.setItem('theme', newTheme);
+        document.documentElement.classList.toggle('dark', newTheme === 'dark');
+      }
+      return newTheme;
+    });
+  };
+
+  useEffect(() => {
+    if (!mounted) return;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      const newTheme = e.matches ? 'dark' : 'light';
-      // Only change theme if user hasn't set a preference yet
       if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
         setTheme(newTheme);
         document.documentElement.classList.toggle('dark', newTheme === 'dark');
       }
     };
-    
+
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  }, [mounted]);
 
-  // Toggle theme function with improved class management
-  const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      
-      // Ensure the class is properly applied/removed
-      if (newTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      
-      return newTheme;
-    });
-  };
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, isDarkMode, checkDarkMode }}>

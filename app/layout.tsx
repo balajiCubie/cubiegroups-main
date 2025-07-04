@@ -8,8 +8,8 @@ import { ThemeProvider } from "./context/ThemeContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cubie Group's - A Google-style Blog Website",
-  description: "A modern blog showcasing the latest articles on technology, design, and development.",
+  title: "Cubie Group - Building a Modular Future",
+  description: "The official website for Cubie Group, a multi-sector holding company at the intersection of technology, hardware, creative industries, and frontier research.",
 };
 
 export default function RootLayout({
@@ -18,23 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="transition-colors duration-300">
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: `
-          // On page load, check the theme and apply dark mode class if necessary
-          (function() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-              document.documentElement.classList.add('dark');
-            } else {
-              document.documentElement.classList.remove('dark');
-            }
-          })();
-        ` }} />
-      </head>
-      <body className={`${inter.className} min-h-screen dark:bg-gray-900 transition-colors duration-300`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300`}>
         <ThemeProvider>
           <Header />
           <main className="min-h-screen">{children}</main>
