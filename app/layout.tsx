@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script"; // Import Script component
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -42,8 +43,13 @@ export default function RootLayout({
         />
         {/* Google Analytics */}
         {/* Google Analytics - Replace 'YOUR_GA_TRACKING_ID' with your actual Google Analytics ID */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_TRACKING_ID"></script>
-        <script
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_TRACKING_ID"
+        />
+        <Script
+          id="google-analytics-script"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
