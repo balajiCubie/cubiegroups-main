@@ -1,20 +1,20 @@
 'use client';
 
+import Image from 'next/image';
 import { MotionH1, MotionP, MotionDiv } from './motion-components';
 
 export function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center bg-gray-900 text-white overflow-hidden">
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          loop
-          muted
-          className="w-full h-full object-cover"
-          poster="https://cubie.co/assets/img/cubie-poster.jpg"
-        >
-          <source src="https://cubie.co/assets/video/cubie-background.mp4" type="video/mp4" />
-        </video>
+        <Image
+          src="/heroSectionBackground.jpg"
+          alt="Cubie Group Background"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
         <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
       <div className="relative z-10 text-center px-4">

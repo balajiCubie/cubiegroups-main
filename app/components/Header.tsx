@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { MotionHeader, MotionDiv, MotionButton } from './motion-components';
 import { useTheme } from '../context/ThemeContext';
+import SearchBar from './SearchBar';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const { theme, toggleTheme, isDarkMode, checkDarkMode } = useTheme();
   const [darkModeActive, setDarkModeActive] = useState(false);
 
@@ -14,25 +16,19 @@ const Header = () => {
   useEffect(() => {
     const isDarkActive = checkDarkMode();
     setDarkModeActive(isDarkActive);
-    
+
     // For debugging
-    console.log('Dark mode status:', {
-      theme,
-      darkModeActive: isDarkActive,
-      htmlHasDarkClass: document.documentElement.classList.contains('dark'),
-      storedTheme: localStorage.getItem('theme')
-    });
   }, [theme, checkDarkMode]);
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.5,
-        staggerChildren: 0.1 
-      } 
+        staggerChildren: 0.1
+      }
     }
   };
 
@@ -42,7 +38,7 @@ const Header = () => {
   };
 
   return (
-    <MotionHeader 
+    <MotionHeader
       className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-300"
       initial="hidden"
       animate="visible"
@@ -57,15 +53,57 @@ const Header = () => {
                 <line x1="16" y1="8" x2="2" y2="22"></line>
                 <line x1="17.5" y1="15" x2="9" y2="15"></line>
               </svg>
-              <span className="text-xl font-semibold text-gray-900 dark:text-white transition-colors duration-300">Cubie Group's</span>
+              <span className="text-xl font-semibold text-gray-900 dark:text-white transition-colors duration-300">Cubie Group</span>
             </Link>
+          </div>
+
+          <div className="flex-grow flex justify-center px-4">
+            <SearchBar />
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
             <MotionDiv variants={itemVariants}>
-              <Link href="/" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              <Link href="/" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">
                 Home
               </Link>
+            </MotionDiv>
+            {/* Mega Menu for Sectors */}
+            <MotionDiv
+              variants={itemVariants}
+              onMouseEnter={() => setIsMegaMenuOpen(true)}
+              onMouseLeave={() => setIsMegaMenuOpen(false)}
+              className="relative"
+            >
+              <button className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+                Sectors
+                <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              {isMegaMenuOpen && (
+                <MotionDiv
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute left-1/2 transform -translate-x-1/2 mt-4 w-96 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 grid grid-cols-2 gap-4 border border-gray-200 dark:border-gray-700"
+                >
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-gray-900 dark:text-white">Industry Verticals</h3>
+                    <Link href="/sectors/technology" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Technology</Link>
+                    <Link href="/sectors/finance" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Finance</Link>
+                    <Link href="/sectors/healthcare" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Healthcare</Link>
+                    <Link href="/sectors/manufacturing" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Manufacturing</Link>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-gray-900 dark:text-white">Business Units</h3>
+                    <Link href="/sectors/consumer-goods" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Consumer Goods</Link>
+                    <Link href="/sectors/energy" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Energy</Link>
+                    <Link href="/sectors/real-estate" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Real Estate</Link>
+                    <Link href="/sectors/logistics" className="block text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Logistics</Link>
+                  </div>
+                </MotionDiv>
+              )}
             </MotionDiv>
             <MotionDiv variants={itemVariants}>
               <Link href="/blog" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
@@ -81,6 +119,42 @@ const Header = () => {
               <Link href="/contact" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 Contact
               </Link>
+            </MotionDiv>
+            <MotionDiv variants={itemVariants}>
+              <Link href="/investors" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Investors
+              </Link>
+            </MotionDiv>
+            <MotionDiv variants={itemVariants}>
+              <Link href="/innovation" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Innovation
+              </Link>
+            </MotionDiv>
+            <MotionDiv variants={itemVariants}>
+              <Link href="/newsroom" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Newsroom
+              </Link>
+            </MotionDiv>
+            <MotionDiv variants={itemVariants}>
+              <Link href="/careers" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Careers
+              </Link>
+            </MotionDiv>
+            <MotionDiv variants={itemVariants}>
+              <Link href="/global-contact" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Contact
+              </Link>
+            </MotionDiv>
+            <MotionDiv variants={itemVariants}>
+              <select
+                className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                defaultValue="en"
+              >
+                <option value="en">EN</option>
+                <option value="ja">JA</option>
+                <option value="de">DE</option>
+                <option value="pt">PT</option>
+              </select>
             </MotionDiv>
             <MotionDiv variants={itemVariants}>
               <div className="flex items-center">
@@ -124,6 +198,7 @@ const Header = () => {
           </div>
 
           <div className="md:hidden flex items-center space-x-4">
+            <SearchBar />
             <div className="flex items-center">
               <span className="mr-1">
                 {darkModeActive ? (
@@ -158,7 +233,7 @@ const Header = () => {
                 )}
               </MotionButton>
             </div>
-            <button 
+            <button
               type="button"
               className="bg-white dark:bg-gray-700 rounded-md p-2 inline-flex items-center justify-center text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -173,7 +248,7 @@ const Header = () => {
       </div>
 
       {isMenuOpen && (
-        <MotionDiv 
+        <MotionDiv
           className="md:hidden fixed top-16 left-0 right-0 z-50 bg-white dark:bg-gray-800 p-6 shadow-lg border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 overflow-hidden"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -187,6 +262,38 @@ const Header = () => {
               </svg>
               Home
             </Link>
+            {/* Mega Menu for Mobile */}
+            <div className="relative w-full">
+              <button
+                className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center w-full justify-between"
+                onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+              >
+                Sectors
+                <svg className="ml-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              {isMegaMenuOpen && (
+                <MotionDiv
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-2 pl-4 space-y-2 border-l-2 border-gray-200 dark:border-gray-700"
+                >
+                  <h3 className="font-bold text-gray-900 dark:text-white">Industry Verticals</h3>
+                  <Link href="/sectors/technology" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Technology</Link>
+                  <Link href="/sectors/finance" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Finance</Link>
+                  <Link href="/sectors/healthcare" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Healthcare</Link>
+                  <Link href="/sectors/manufacturing" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Manufacturing</Link>
+                  <h3 className="font-bold text-gray-900 dark:text-white mt-4">Business Units</h3>
+                  <Link href="/sectors/consumer-goods" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Consumer Goods</Link>
+                  <Link href="/sectors/energy" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Energy</Link>
+                  <Link href="/sectors/real-estate" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Real Estate</Link>
+                  <Link href="/sectors/logistics" className="block text-base text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">Logistics</Link>
+                </MotionDiv>
+              )}
+            </div>
             <Link href="/blog" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
@@ -205,8 +312,51 @@ const Header = () => {
               </svg>
               Contact
             </Link>
-            
+            <Link href="/investors" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Investors
+            </Link>
+            <Link href="/innovation" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Innovation
+            </Link>
+            <Link href="/newsroom" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Newsroom
+            </Link>
+            <Link href="/careers" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Careers
+            </Link>
+
+            <Link href="/global-contact" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Contact
+            </Link>
+
             <div className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Language</span>
+                <select
+                  className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue="en"
+                >
+                  <option value="en">EN</option>
+                  <option value="ja">JA</option>
+                  <option value="de">DE</option>
+                  <option value="pt">PT</option>
+                </select>
+              </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Dark Mode</span>
                 <button

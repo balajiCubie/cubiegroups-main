@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +9,16 @@
   --foreground: 222.2 84% 4.9%;
   --primary: 210 40% 98%;
   --primary-foreground: 210 40% 9.8%;
+
+  /* Accent Colors */
+  --accent-1: 240 50% 60%; /* Example bold blue */
+  --accent-2: 10 80% 60%;  /* Example bold orange */
+  --accent-3: 140 70% 40%; /* Example bold green */
+
+  /* New Brand Colors (Light Mode) */
+  --brand-primary: 220 80% 50%;   /* A strong blue */
+  --brand-secondary: 30 90% 60%;  /* A vibrant orange */
+  --brand-tertiary: 180 70% 40%;  /* A cool teal */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,10 +27,21 @@
     --foreground: 210 40% 98%;
     --primary: 217.2 32.6% 17.5%;
     --primary-foreground: 210 40% 98%;
+
+    /* Accent Colors for Dark Mode */
+    --accent-1: 240 70% 70%;
+    --accent-2: 10 90% 70%;
+    --accent-3: 140 80% 50%;
+
+    /* New Brand Colors (Dark Mode) */
+    --brand-primary: 220 90% 70%;
+    --brand-secondary: 30 95% 70%;
+    --brand-tertiary: 180 80% 60%;
   }
 }
 
 body {
+  font-family: 'Inter', sans-serif;
   color: hsl(var(--foreground));
   background: hsl(var(--background));
 }

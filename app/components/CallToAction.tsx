@@ -12,6 +12,7 @@ export function CallToAction() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8 }}
+          whileHover={{ scale: 1.01, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08)" }}
           className="bg-gray-800 rounded-2xl p-12 shadow-2xl"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">

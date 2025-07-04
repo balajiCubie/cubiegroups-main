@@ -23,7 +23,8 @@ const BlogCard = ({ id, title, excerpt, coverImage, date, author, index = 0 }: B
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+      whileHover={{ scale: 1.02, y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+      className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm transition-all duration-300"
     >
       <Link href={`/blog/${id}`} className="block">
         <div className="relative h-48 w-full">
