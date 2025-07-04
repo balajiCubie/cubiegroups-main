@@ -1,41 +1,106 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { MotionDiv } from './motion-components';
+import { Briefcase, PenTool, Lightbulb, BarChart, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const subsidiaries = [
-  { name: 'CubieTech', description: 'Innovating at the intersection of software and hardware.' },
-  { name: 'CubieCreative', description: 'Crafting compelling narratives and visual experiences.' },
-  { name: 'CubieLabs', description: 'Exploring the future of human-computer interaction.' },
+  {
+    name: 'CubieTech',
+    description: 'Engineering the building blocks of tomorrow’s technology, from embedded systems to enterprise-level software.',
+    icon: <Briefcase className="w-10 h-10" />,
+    slug: 'cubietech',
+    color: 'text-blue-400',
+    borderColor: 'hover:border-blue-400/50',
+  },
+  {
+    name: 'CubieCreative',
+    description: 'Crafting compelling brand narratives and immersive digital experiences that resonate and inspire.',
+    icon: <PenTool className="w-10 h-10" />,
+    slug: 'cubiecreative',
+    color: 'text-purple-400',
+    borderColor: 'hover:border-purple-400/50',
+  },
+  {
+    name: 'CubieLabs',
+    description: 'Venturing into the unknown, our R&D hub pioneers frontier technologies like AI, quantum computing, and beyond.',
+    icon: <Lightbulb className="w-10 h-10" />,
+    slug: 'cubielabs',
+    color: 'text-green-400',
+    borderColor: 'hover:border-green-400/50',
+  },
+  {
+    name: 'CubieVentures',
+    description: 'Fueling the next wave of disruption by investing in and mentoring visionary startups poised for global impact.',
+    icon: <BarChart className="w-10 h-10" />,
+    slug: 'cubieventures',
+    color: 'text-yellow-400',
+    borderColor: 'hover:border-yellow-400/50',
+  },
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
 
 export function Subsidiaries() {
   return (
-    <section className="py-20 bg-gray-100 dark:bg-gray-800">
+    <section className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+        <MotionDiv
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center mb-12"
+          className="text-center mb-16"
         >
-          Our Subsidiaries
-        </motion.h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {subsidiaries.map((sub, index) => (
-            <motion.div
-              key={sub.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md"
-            >
-              <h3 className="text-2xl font-bold mb-4">{sub.name}</h3>
-              <p className="text-gray-600 dark:text-gray-300">{sub.description}</p>
-            </motion.div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Meet the Cubie Blocks</h2>
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+            Diverse in expertise, united in vision. Explore the individual companies that form our powerful, interconnected ecosystem.
+          </p>
+        </MotionDiv>
+
+        <MotionDiv
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {subsidiaries.map((sub) => (
+            <MotionDiv key={sub.name} variants={cardVariants}>
+              <Link href={`/subsidiaries/${sub.slug}`} passHref>
+                <MotionDiv
+                  whileHover={{ y: -8, boxShadow: '0px 20px 30px rgba(0,0,0,0.2)' }}
+                  className={`group bg-gray-800 p-8 rounded-xl shadow-lg border-2 border-gray-700/50 flex flex-col h-full transition-all duration-300 ${sub.borderColor}`}
+                >
+                  <div className="flex items-center gap-5 mb-5">
+                    <div className={`transition-colors duration-300 ${sub.color}`}>
+                      {sub.icon}
+                    </div>
+                    <h3 className="text-3xl font-bold text-white">{sub.name}</h3>
+                  </div>
+                  <p className="text-gray-400 flex-grow mb-6">{sub.description}</p>
+                  <div className="mt-auto flex items-center font-semibold text-blue-400">
+                    Explore {sub.name}
+                    <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
+                </MotionDiv>
+              </Link>
+            </MotionDiv>
           ))}
-        </div>
+        </MotionDiv>
       </div>
     </section>
   );

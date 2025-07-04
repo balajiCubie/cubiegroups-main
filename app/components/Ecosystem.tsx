@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { MotionDiv, MotionLine, AnimatePresence } from './motion-components';
 import { Briefcase, Lightbulb, PenTool, BarChart } from 'lucide-react';
 
 interface Subsidiary {
@@ -72,7 +72,7 @@ const subsidiariesData: Subsidiary[] = [
 ];
 
 const Node = ({ sub, onHover, isActive, isRelated }: NodeProps) => (
-  <motion.div
+  <MotionDiv
     initial={{ scale: 0 }}
     animate={{ scale: 1 }}
     transition={{ type: 'spring', stiffness: 260, damping: 20, delay: Math.random() * 0.5 }}
@@ -90,7 +90,7 @@ const Node = ({ sub, onHover, isActive, isRelated }: NodeProps) => (
       <div className="text-white mb-1">{sub.icon}</div>
       <span className="text-sm font-semibold text-white">{sub.name}</span>
     </div>
-  </motion.div>
+  </MotionDiv>
 );
 
 const ConnectionLine = ({ from, to, isVisible }: ConnectionLineProps) => {
@@ -98,7 +98,7 @@ const ConnectionLine = ({ from, to, isVisible }: ConnectionLineProps) => {
   const p2 = { x: parseFloat(to.position.left), y: parseFloat(to.position.top) };
 
   return (
-    <motion.line
+    <MotionLine
       x1={`${p1.x}%`}
       y1={`${p1.y}%`}
       x2={`${p2.x}%`}
@@ -140,7 +140,7 @@ export function Ecosystem() {
   return (
     <section className="py-24 bg-gray-800 text-white overflow-hidden">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -151,18 +151,18 @@ export function Ecosystem() {
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
             Explore the synergies between our subsidiaries. Hover over a node to see its connections and discover how we build a modular future together.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 min-h-[600px]">
           {/* Interactive Visualization */}
           <div className="w-full lg:w-1/2 flex justify-center items-center" onMouseLeave={() => setHoveredId(null)}>
             <div className="relative w-96 h-96">
-              <motion.div
+              <MotionDiv
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gray-900/50 rounded-full flex items-center justify-center text-center p-4 border-2 border-gray-700"
                 whileHover={{ scale: 1.1 }}
               >
                 <span className="font-bold text-2xl text-white">Cubie Group</span>
-              </motion.div>
+              </MotionDiv>
 
               <svg className="absolute top-0 left-0 w-full h-full overflow-visible">
                 {connections.map(({ from, to }) => (
@@ -193,7 +193,7 @@ export function Ecosystem() {
           <div className="w-full lg:w-1/2">
             {activeSubsidiary && (
               <AnimatePresence mode="wait">
-                <motion.div
+                <MotionDiv
                   key={activeSubsidiary.id}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -208,7 +208,7 @@ export function Ecosystem() {
                     <h3 className="text-3xl font-bold text-white">{activeSubsidiary.name}</h3>
                   </div>
                   <p className="text-lg text-gray-300 min-h-[120px]">{activeSubsidiary.description}</p>
-                </motion.div>
+                </MotionDiv>
               </AnimatePresence>
             )}
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { MotionDiv, MotionA } from './motion-components';
 import { DollarSign, Handshake, Users, Briefcase, Newspaper, Landmark } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 
@@ -83,7 +83,7 @@ export function StakeholderSections() {
   return (
     <section className="py-24 bg-gray-800 text-white">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -94,9 +94,9 @@ export function StakeholderSections() {
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
             Our ecosystem is built on connection. We provide dedicated portals for every stakeholder to engage, collaborate, and grow with us.
           </p>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -104,7 +104,7 @@ export function StakeholderSections() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {stakeholders.map((stakeholder) => (
-            <motion.a
+            <MotionA
               key={stakeholder.name}
               href={stakeholder.link}
               variants={cardVariants}
@@ -124,9 +124,9 @@ export function StakeholderSections() {
                 Learn More
                 <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
               </div>
-            </motion.a>
+            </MotionA>
           ))}
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Export motion components to be used throughout the application
 // This wrapper prevents React Server Components bundler errors
@@ -18,3 +18,5 @@ export const MotionH3 = motion.h3;
 export const MotionP = motion.p;
 export const MotionUl = motion.ul;
 export const MotionLi = motion.li;
+export const MotionLine = motion.line;
+export { AnimatePresence };

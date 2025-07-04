@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { MotionDiv } from './motion-components';
 import { Zap, Scaling, Infinity, BrainCircuit } from 'lucide-react';
 
 const values = [
@@ -51,7 +51,7 @@ export function CoreValues() {
   return (
     <section className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -62,11 +62,11 @@ export function CoreValues() {
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
             These principles are the code behind our culture, guiding how we build, connect, and innovate.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {values.map((value, index) => (
-            <motion.div
+            <MotionDiv
               key={value.name}
               custom={index}
               variants={cardVariants}
@@ -81,7 +81,7 @@ export function CoreValues() {
               </div>
               <h3 className="text-2xl font-bold mb-3 text-white">{value.name}</h3>
               <p className="text-gray-400">{value.description}</p>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>
