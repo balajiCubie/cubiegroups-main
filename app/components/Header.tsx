@@ -5,9 +5,7 @@ import { useState } from 'react';
 import { MotionHeader, MotionDiv, MotionButton } from './motion-components';
 import { useTheme } from '../context/ThemeContext';
 import SearchBar from './SearchBar';
-import IndustryVerticals from './sectors/IndustryVerticals';
-import BusinessUnits from './sectors/BusinessUnits';
-import ExploreMore from './sectors/ExploreMore';
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,40 +65,6 @@ const Header = () => {
               </Link>
             </MotionDiv>
 
-            {/* Mega Menu for Sectors */}
-            <MotionDiv
-              variants={itemVariants}
-              onMouseEnter={() => setIsMegaMenuOpen(true)}
-              onMouseLeave={() => setIsMegaMenuOpen(false)}
-              className="relative group"
-            >
-              <button
-                className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors flex items-center relative uppercase tracking-wide"
-                aria-expanded={isMegaMenuOpen ? "true" : "false"}
-                aria-haspopup="true"
-              >
-                Sectors
-                <svg className="ml-1 h-4 w-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ transform: isMegaMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary dark:bg-brand-secondary transition-all duration-300 group-hover:w-full"></span>
-              </button>
-              {isMegaMenuOpen && (
-                <MotionDiv
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute left-1/2 transform -translate-x-1/2 mt-4 w-[48rem] bg-white dark:bg-gray-800 shadow-xl rounded-lg p-6 grid grid-cols-3 gap-6 border border-gray-100 dark:border-gray-700 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90"
-                  role="menu"
-                  aria-orientation="vertical"
-                >
-                  <IndustryVerticals />
-                  <BusinessUnits />
-                  <ExploreMore />
-                </MotionDiv>
-              )}
-            </MotionDiv>
 
             {/* Blog Link */}
             <MotionDiv variants={itemVariants} className="relative group">
@@ -122,6 +86,14 @@ const Header = () => {
             <MotionDiv variants={itemVariants} className="relative group">
               <Link href="/investors" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors relative uppercase tracking-wide">
                 Investors
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary dark:bg-brand-secondary transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            </MotionDiv>
+
+            {/* Companies & Sectors Link */}
+            <MotionDiv variants={itemVariants} className="relative group">
+              <Link href="/companies-sectors" className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors relative uppercase tracking-wide">
+                Companies & Sectors
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary dark:bg-brand-secondary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </MotionDiv>
@@ -291,34 +263,11 @@ const Header = () => {
               Home
             </Link>
 
-            {/* Mobile Mega Menu for Sectors */}
-            <div className="relative w-full">
-              <button
-                className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors flex items-center w-full justify-between py-2 uppercase tracking-wide"
-                onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                aria-controls="mobile-mega-menu-sectors"
-                aria-expanded={isMegaMenuOpen ? "true" : "false"}
-              >
-                Sectors
-                <svg className="ml-1 h-5 w-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ transform: isMegaMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              {isMegaMenuOpen && (
-                <MotionDiv
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-2 pl-4 space-y-2 border-l-2 border-gray-200 dark:border-gray-700"
-                  id="mobile-mega-menu-sectors"
-                >
-                  <IndustryVerticals />
-                  <BusinessUnits />
-                  <ExploreMore />
-                </MotionDiv>
-              )}
-            </div>
+
+            {/* Mobile Companies & Sectors Link */}
+            <Link href="/companies-sectors" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors flex items-center py-2 uppercase tracking-wide" onClick={() => setIsMenuOpen(false)}>
+              Companies & Sectors
+            </Link>
 
             {/* Mobile Blog Link */}
             <Link href="/blog" className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors flex items-center py-2 uppercase tracking-wide" onClick={() => setIsMenuOpen(false)}>

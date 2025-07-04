@@ -6,6 +6,7 @@ import BoardCommittees from '@/app/components/investors/BoardCommittees';
 import ESG from '@/app/components/investors/ESG';
 import Filings from '@/app/components/investors/Filings';
 import InvestorContact from '@/app/components/investors/InvestorContact';
+import InvestmentBankingOverview from '@/app/components/investors/InvestmentBankingOverview';
 
 
 const InvestorRelationsPage = () => {
@@ -13,6 +14,7 @@ const InvestorRelationsPage = () => {
     <div>
       <main className="py-16 container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-12">Investor Relations Hub</h1>
+        <InvestmentBankingOverview />
         <div className="space-y-12">
           <StockTicker />
           <Reports />
