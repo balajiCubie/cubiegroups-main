@@ -23,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+
         {/* Schema.org Markup */}
         <script
           type="application/ld+json"
@@ -42,6 +43,7 @@ export default function RootLayout({
           }}
         />
         {/* Google Analytics */}
+        <meta name="google-site-verification" content="AUwcMVU9uIVuldmtmtZtzJ5bRUQZpwa0veRyR-DnL1Y" />
         {/* Google Analytics - Replace 'YOUR_GA_TRACKING_ID' with your actual Google Analytics ID */}
         <Script
           strategy="afterInteractive"
