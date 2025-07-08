@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script"; // Import Script component
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Breadcrumbs from "./components/Breadcrumbs";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Breadcrumbs from "./components/shared/Breadcrumbs";
 import { ThemeProvider } from "./context/ThemeContext";
-import CookieConsent from "./components/CookieConsent"; // Import the CookieConsent component
+import CookieConsent from "./components/shared/CookieConsent"; // Import the CookieConsent component
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,10 +44,10 @@ export default function RootLayout({
         />
         {/* Google Analytics */}
         <meta name="google-site-verification" content="AUwcMVU9uIVuldmtmtZtzJ5bRUQZpwa0veRyR-DnL1Y" />
-        {/* Google Analytics - Replace 'YOUR_GA_TRACKING_ID' with your actual Google Analytics ID */}
+        {/* Google Analytics - IMPORTANT: Replace 'G-XXXXXXXXXX' with your actual Google Analytics ID */}
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_TRACKING_ID"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
         />
         <Script
           id="google-analytics-script"
@@ -57,7 +57,7 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'YOUR_GA_TRACKING_ID');
+              gtag('config', 'G-XXXXXXXXXX');
             `,
           }}
         />

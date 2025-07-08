@@ -1,6 +1,6 @@
 'use client';
 
-import { MotionDiv, MotionA } from './motion-components';
+import { MotionDiv, MotionA } from '../shared/motion-components';
 import { DollarSign, Handshake, Users, Briefcase, Newspaper, Landmark } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 
@@ -81,8 +81,14 @@ const cardVariants = {
 
 export function StakeholderSections() {
   return (
-    <section className="py-24 bg-gray-800 text-white">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-background text-foreground relative overflow-hidden">
+      {/* Subtle background animation for modular network feel */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-purple-900 animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -90,9 +96,11 @@ export function StakeholderSections() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">A Universe of Collaboration</h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-            Our ecosystem is built on connection. We provide dedicated portals for every stakeholder to engage, collaborate, and grow with us.
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            A <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Universe of Collaboration</span>
+          </h2>
+          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+            Our ecosystem thrives on connection. We provide dedicated portals for every stakeholder to engage, collaborate, and grow with us.
           </p>
         </MotionDiv>
 
@@ -108,18 +116,18 @@ export function StakeholderSections() {
               key={stakeholder.name}
               href={stakeholder.link}
               variants={cardVariants}
-              whileHover={{ y: -8, boxShadow: '0px 20px 30px rgba(0,0,0,0.2)' }}
-              className={`group bg-gray-900 p-8 rounded-xl shadow-lg border-2 border-gray-700/50 flex flex-col transition-all duration-300 ${stakeholder.borderColor}`}
+              whileHover={{ y: -8, boxShadow: '0 0 30px rgba(0, 198, 255, 0.5)' }}
+              className={`group glassmorphism p-8 rounded-xl border border-blue-700 border-opacity-30 flex flex-col transition-all duration-300 hover:border-blue-500 hover:border-opacity-50`}
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className={`transition-colors duration-300 ${stakeholder.color}`}>
+                <div className={`p-3 rounded-full bg-gradient-to-br from-blue-800 to-purple-800 text-white ${stakeholder.color}`}>
                   {stakeholder.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-white">{stakeholder.name}</h3>
               </div>
-              <p className="text-gray-400 flex-grow mb-6">{stakeholder.description}</p>
+              <p className="text-gray-300 flex-grow mb-6">{stakeholder.description}</p>
               <div
-                className="mt-auto flex items-center font-semibold text-blue-400"
+                className="mt-auto flex items-center font-semibold text-neon-blue-gradient"
               >
                 Learn More
                 <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />

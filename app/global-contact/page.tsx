@@ -1,8 +1,8 @@
 import React from 'react';
-import OfficeMap from '@/app/components/global-contact/OfficeMap';
-import LocalContacts from '@/app/components/global-contact/LocalContacts';
-import InquiryRouting from '@/app/components/global-contact/InquiryRouting';
-import MeetingScheduler from '@/app/components/global-contact/MeetingScheduler';
+import OfficeMap from '@/app/components/shared/OfficeMap';
+import LocalContacts from '@/app/components/shared/LocalContacts';
+import InquiryRouting from '@/app/components/shared/InquiryRouting';
+import MeetingScheduler from '@/app/components/shared/MeetingScheduler';
 
 const GlobalContactPage = () => {
   return (

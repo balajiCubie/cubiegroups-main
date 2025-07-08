@@ -1,6 +1,6 @@
 'use client';
 
-import { MotionDiv } from './motion-components';
+import { MotionDiv } from '../shared/motion-components';
 import { Briefcase, PenTool, Lightbulb, BarChart, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -56,8 +56,14 @@ const cardVariants = {
 
 export function Subsidiaries() {
   return (
-    <section className="py-24 bg-gray-900 text-white">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-background text-foreground relative overflow-hidden">
+      {/* Subtle background animation for modular network feel */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-purple-900 animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,8 +71,10 @@ export function Subsidiaries() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Meet the Cubie Blocks</h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Cubie Blocks</span>
+          </h2>
+          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
             Diverse in expertise, united in vision. Explore the individual companies that form our powerful, interconnected ecosystem.
           </p>
         </MotionDiv>
@@ -76,14 +84,14 @@ export function Subsidiaries() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {subsidiaries.map((sub) => (
             <MotionDiv key={sub.name} variants={cardVariants}>
               <Link href={`/subsidiaries/${sub.slug}`} passHref>
                 <MotionDiv
-                  whileHover={{ y: -8, boxShadow: '0px 20px 30px rgba(0,0,0,0.2)' }}
-                  className={`group bg-gray-800 p-8 rounded-xl shadow-lg border-2 border-gray-700/50 flex flex-col h-full transition-all duration-300 ${sub.borderColor}`}
+                  whileHover={{ y: -8, boxShadow: '0 0 30px rgba(0, 198, 255, 0.5)' }}
+                  className={`group glassmorphism p-8 rounded-xl border border-blue-700 border-opacity-30 flex flex-col h-full transition-all duration-300 hover:border-blue-500 hover:border-opacity-50`}
                 >
                   <div className="flex items-center gap-5 mb-5">
                     <div className={`transition-colors duration-300 ${sub.color}`}>
@@ -91,9 +99,9 @@ export function Subsidiaries() {
                     </div>
                     <h3 className="text-3xl font-bold text-white">{sub.name}</h3>
                   </div>
-                  <p className="text-gray-400 flex-grow mb-6">{sub.description}</p>
-                  <div className="mt-auto flex items-center font-semibold text-blue-400">
-                    Explore {sub.name}
+                  <p className="text-gray-300 flex-grow mb-6">{sub.description}</p>
+                  <div className="mt-auto flex items-center font-semibold text-neon-blue-gradient">
+                    Explore
                     <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </MotionDiv>

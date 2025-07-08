@@ -1,11 +1,11 @@
 import React from 'react';
-import PressReleases from '@/app/components/newsroom/PressReleases';
-import FeaturedArticles from '@/app/components/newsroom/FeaturedArticles';
-import ExecutiveInterviews from '@/app/components/newsroom/ExecutiveInterviews';
-import EventsCalendar from '@/app/components/newsroom/EventsCalendar';
-import MediaKit from '@/app/components/newsroom/MediaKit';
-import PRContact from '@/app/components/newsroom/PRContact';
-import SocialFeed from '@/app/components/newsroom/SocialFeed';
+import PressReleases from '@/app/components/shared/PressReleases';
+import FeaturedArticles from '@/app/components/shared/FeaturedArticles';
+import ExecutiveInterviews from '@/app/components/shared/ExecutiveInterviews';
+import EventsCalendar from '@/app/components/shared/EventsCalendar';
+import MediaKit from '@/app/components/shared/MediaKit';
+import PRContact from '@/app/components/shared/PRContact';
+import SocialFeed from '@/app/components/shared/SocialFeed';
 
 const NewsroomPage = () => {
   return (

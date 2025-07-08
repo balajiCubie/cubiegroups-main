@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { MotionFooter, MotionDiv } from './motion-components';
-import { useTheme } from '../context/ThemeContext';
+import { MotionFooter, MotionDiv } from '../shared/motion-components';
+import { useTheme } from '../../context/ThemeContext';
 import { AnimatePresence, motion } from 'framer-motion';
 
 /**
@@ -129,49 +129,36 @@ const Footer = () => {
 
   return (
     <MotionFooter
-      className="bg-white dark:bg-gray-900 relative font-sans"
+      className="bg-background text-foreground relative font-sans border-t border-blue-900/50"
       initial="hidden"
       animate="visible"
       variants={footerVariants}
     >
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Business Links */}
-          <MotionDiv variants={itemVariants}>
-            <h3 className="text-lg font-bold text-white mb-4">Business</h3>
-            <ul className="space-y-2">
-              {businessLinks.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-sm hover:text-blue-400 transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <h3 className="text-lg font-bold text-white mt-8 mb-4">Browse our brands</h3>
-          </MotionDiv>
+      {/* Subtle background animation for modular network feel */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-purple-900 animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+      </div>
 
-          {/* Community Links */}
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Column 1: About & Legal */}
           <MotionDiv variants={itemVariants}>
-            <h3 className="text-lg font-bold text-white mb-4">Community</h3>
-            <ul className="space-y-2">
-              {communityLinks.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-sm hover:text-blue-400 transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </MotionDiv>
-
-          {/* About Links */}
-          <MotionDiv variants={itemVariants}>
-            <h3 className="text-lg font-bold text-white mb-4">About</h3>
+            <h3 className="text-lg font-bold text-white mb-4 text-neon-blue-gradient">About Cubie Group</h3>
             <ul className="space-y-2">
               {aboutLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm hover:text-blue-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 text-neon-blue-gradient">Legal</h3>
+            <ul className="space-y-2">
+              {legalLinks.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -179,60 +166,103 @@ const Footer = () => {
             </ul>
           </MotionDiv>
 
-          {/* Newsroom & Careers */}
+          {/* Column 2: Business & Community */}
           <MotionDiv variants={itemVariants}>
-            <h3 className="text-lg font-bold text-white mb-4">Newsroom</h3>
+            <h3 className="text-lg font-bold text-white mb-4 text-neon-blue-gradient">Our Business</h3>
+            <ul className="space-y-2">
+              {businessLinks.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 text-neon-blue-gradient">Community Initiatives</h3>
+            <ul className="space-y-2">
+              {communityLinks.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </MotionDiv>
+
+          {/* Column 3: Newsroom & Careers */}
+          <MotionDiv variants={itemVariants}>
+            <h3 className="text-lg font-bold text-white mb-4 text-neon-blue-gradient">Newsroom</h3>
             <ul className="space-y-2">
               {newsroomLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm hover:text-blue-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
                     {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-            <ul className="space-y-2 mt-8">
-              {legalLinks.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-sm hover:text-blue-400 transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 text-neon-blue-gradient">Careers</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/careers" className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
+                  Explore Opportunities
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers/jobs" className="text-sm text-gray-300 hover:text-neon-blue-gradient transition-colors">
+                  Job Listings
+                </Link>
+              </li>
             </ul>
           </MotionDiv>
 
-          {/* Social Links & Newsletter */}
-          <MotionDiv variants={itemVariants} className="lg:col-span-1 flex flex-col items-end">
+          {/* Column 4: Social & Newsletter */}
+          <MotionDiv variants={itemVariants} className="lg:col-span-1 flex flex-col items-start lg:items-end">
+            <h3 className="text-lg font-bold text-white mb-4 text-neon-blue-gradient">Connect With Us</h3>
             <div className="flex space-x-4 mb-6">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   aria-label={link.name}
-                  className="text-gray-200 hover:text-blue-400 transition-colors"
+                  className="text-gray-300 hover:text-neon-blue-gradient transition-colors transform hover:scale-110"
                 >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d={link.icon}></path>
                   </svg>
                 </a>
               ))}
             </div>
-            <form onSubmit={handleNewsletterSubmit} className="flex flex-col w-full max-w-xs">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col w-full max-w-xs lg:text-right">
+              <p className="text-gray-300 text-sm mb-2">Stay updated with our latest news:</p>
               <input
                 type="email"
-                placeholder="Enter your email ID to subscribe"
+                placeholder="Enter your email ID"
                 aria-label="Email for newsletter"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="px-4 py-2 text-sm rounded-md border border-gray-600 bg-[#202020] text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                className="px-4 py-2 text-sm rounded-md border border-blue-700 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-neon-blue-gradient glassmorphism"
                 required
               />
+              <div className="flex items-center mt-2">
+                <input
+                  type="checkbox"
+                  id="gdprConsent"
+                  checked={gdprConsent}
+                  onChange={(e) => setGdprConsent(e.target.checked)}
+                  className="form-checkbox h-4 w-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="gdprConsent" className="ml-2 text-xs text-gray-400">
+                  I agree to the privacy policy and terms.
+                </label>
+              </div>
               <button
                 type="submit"
-                className="mt-2 px-4 py-2 text-sm font-medium text-white bg-transparent border border-gray-600 rounded-md hover:border-blue-400 transition-colors flex items-center justify-center"
+                className="mt-4 px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-md hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-blue-500/30"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                Subscribe
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </button>
               <AnimatePresence>
                 {newsletterStatus === 'success' && (
@@ -252,24 +282,24 @@ const Footer = () => {
                     exit={{ opacity: 0, y: -10 }}
                     className="text-red-400 text-xs mt-2"
                   >
-                    Please enter a valid email.
+                    Please enter a valid email and accept the terms.
                   </motion.p>
                 )}
               </AnimatePresence>
             </form>
-            <div className="mt-12">
-              {/* Placeholder for cubie Logo */}
-              <svg className="w-24 h-auto text-white" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 0C22.38 0 0 22.38 0 50s22.38 50 50 50 50-22.38 50-50S77.62 0 50 0zm0 10c22.09 0 40 17.91 40 40s-17.91 40-40 40-40-17.91-40-40 17.91-40 40-40zm-5 15h10v10h-10zm0 20h10v10h-10zm0 20h10v10h-10z"/>
-              </svg>
-              <p className="text-white text-sm font-bold mt-2">cubie</p>
-            </div>
           </MotionDiv>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-12 text-center text-sm text-gray-500">
-          <p>&copy; 2025 Cubie Group's Private Limited. All Rights Reserved.</p>
+        {/* Copyright and Scroll to Top */}
+        <div className="mt-12 pt-8 border-t border-gray-700/50 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+          <p>&copy; {new Date().getFullYear()} Cubie Group Private Limited. All Rights Reserved.</p>
+          <button
+            onClick={scrollToTop}
+            className={`mt-4 md:mt-0 px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:text-white hover:bg-blue-700 transition-all duration-300 flex items-center ${showScrollToTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+          >
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+            Back to Top
+          </button>
         </div>
       </div>
     </MotionFooter>

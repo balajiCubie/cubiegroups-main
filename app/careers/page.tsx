@@ -1,12 +1,12 @@
 import React from 'react';
-import EmployerVideo from '@/app/components/careers/EmployerVideo';
-import EmployeeTestimonials from '@/app/components/careers/EmployeeTestimonials';
-import CultureDNI from '@/app/components/careers/CultureDNI';
-import Internships from '@/app/components/careers/Internships';
-import BenefitsPerks from '@/app/components/careers/BenefitsPerks';
-import JobListings from '@/app/components/careers/JobListings';
-import TalentCommunity from '@/app/components/careers/TalentCommunity';
-import ApplicationForm from '@/app/components/careers/ApplicationForm';
+import EmployerVideo from '@/app/components/shared/careers/EmployerVideo';
+import EmployeeTestimonials from '@/app/components/shared/careers/EmployeeTestimonials';
+import CultureDNI from '@/app/components/shared/careers/CultureDNI';
+import Internships from '@/app/components/shared/careers/Internships';
+import BenefitsPerks from '@/app/components/shared/careers/BenefitsPerks';
+import JobListings from '@/app/components/shared/careers/JobListings';
+import TalentCommunity from '@/app/components/shared/careers/TalentCommunity';
+import ApplicationForm from '@/app/components/shared/careers/ApplicationForm';
 
 const CareersPage = () => {
   return (

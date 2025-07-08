@@ -1,9 +1,9 @@
 import React from 'react';
-import Milestones from '@/app/components/innovation/Milestones';
-import OpenChallenges from '@/app/components/innovation/OpenChallenges';
-import Patents from '@/app/components/innovation/Patents';
-import PartnerSuccess from '@/app/components/innovation/PartnerSuccess';
-import CollaborationForm from '@/app/components/innovation/CollaborationForm';
+import Milestones from '@/app/components/shared/Milestones';
+import OpenChallenges from '@/app/components/shared/OpenChallenges';
+import Patents from '@/app/components/shared/Patents';
+import PartnerSuccess from '@/app/components/shared/PartnerSuccess';
+import CollaborationForm from '@/app/components/shared/CollaborationForm';
 
 const InnovationPage = () => {
   return (

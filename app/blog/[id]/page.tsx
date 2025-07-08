@@ -5,8 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getBlogPostById, getRelatedPosts } from '../../utils/blogData';
-import { MotionDiv } from '../../components/motion-components';
-import BlogCard from '../../components/BlogCard';
+import { MotionDiv } from '../../components/shared/motion-components';
+import BlogCard from '../../components/shared/BlogCard';
 
 interface BlogPostPageProps {
   params: {
@@ -16,11 +16,11 @@ interface BlogPostPageProps {
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getBlogPostById(params.id);
-  
+
   if (!post) {
     notFound();
   }
-  
+
   const relatedPosts = getRelatedPosts(params.id);
 
   // Animation variants
@@ -64,7 +64,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           Back to Blog
         </Link>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">{post.title}</h1>
-        
+
         <div className="flex items-center mb-8">
           <div className="relative h-10 w-10 rounded-full overflow-hidden mr-4">
             <Image

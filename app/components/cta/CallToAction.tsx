@@ -1,6 +1,6 @@
 'use client';
 
-import { MotionDiv, MotionA } from './motion-components';
+import { MotionDiv, MotionA } from '../shared/motion-components';
 import { ArrowRight } from 'lucide-react';
 
 export function CallToAction() {

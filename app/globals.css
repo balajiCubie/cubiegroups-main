@@ -1,101 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Keyframes for subtle background animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.05; }
 }
 
-.animate-gradient-shift {
-  background-size: 200% 200%;
-  animation: gradient-shift 15s ease infinite;
+@keyframes neon-glow {
+  0%, 100% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
+  50% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff; }
 }
 
-.hero-background-grid {
+/* Utility classes for the new theme */
+.animate-pulse-slow {
+  animation: pulse-slow 20s infinite ease-in-out;
+}
+
+.text-neon-blue-gradient {
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-neon-blue-gradient {
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid pattern for background */
+.bg-grid-pattern {
   background-image:
-    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 198, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 198, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
-  animation: grid-pan 60s linear infinite;
 }
 
-@keyframes grid-pan {
-  from { background-position: 0 0; }
-  to { background-position: -4000px -4000px; }
-}
-
-.hero-background-grid::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.1) 0%, transparent 20%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.hero-background-grid:hover::before {
-  opacity: 1;
-}
-
-.cta-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem; /* Matches rounded-lg */
-  padding: 2px; /* Controls the glow thickness */
-  background: linear-gradient(45deg, #00f, #f0f, #0ff); /* Example glow colors */
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-.cta-button:hover::before {
-  opacity: 1;
-}
-
+/* Root CSS variables for dark theme */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --primary: 210 40% 98%;
-  --primary-foreground: 210 40% 9.8%;
+  --background: 222.2 84% 4.9%; /* Dark background */
+  --foreground: 210 40% 98%; /* Light text */
+  --primary: 217.2 32.6% 17.5%; /* Darker primary for components */
+  --primary-foreground: 210 40% 98%; /* Light text on primary */
 
-  /* Accent Colors */
-  --accent-1: 240 50% 60%; /* Example bold blue */
-  --accent-2: 10 80% 60%;  /* Example bold orange */
-  --accent-3: 140 70% 40%; /* Example bold green */
+  /* Neon Blue Gradient */
+  --neon-blue-start: 200 100% 50%; /* hsl(200, 100%, 50%) - #00c6ff */
+  --neon-blue-end: 220 100% 50%;   /* hsl(220, 100%, 50%) - #0072ff */
 
-  /* New Brand Colors (Light Mode) */
-  --brand-primary: 220 80% 50%;   /* A strong blue */
-  --brand-secondary: 30 90% 60%;  /* A vibrant orange */
-  --brand-tertiary: 180 70% 40%;  /* A cool teal */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 217.2 32.6% 17.5%;
-    --primary-foreground: 210 40% 98%;
-
-    /* Accent Colors for Dark Mode */
-    --accent-1: 240 70% 70%;
-    --accent-2: 10 90% 70%;
-    --accent-3: 140 80% 50%;
-
-    /* New Brand Colors (Dark Mode) */
-    --brand-primary: 220 90% 70%;
-    --brand-secondary: 30 95% 70%;
-    --brand-tertiary: 180 80% 60%;
-  }
+  /* Glassmorphism base color */
+  --glass-base: 210 40% 98%; /* Light color for transparency */
 }
 
 body {

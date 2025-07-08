@@ -1,21 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { MotionDiv } from '../components/motion-components';
+import { MotionDiv } from '../components/shared/motion-components';
 
 export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('submitting');
-    
+
     // Simulate form submission
     setTimeout(() => {
       setFormStatus('success');
     }, 1500);
   };
-  
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,7 +25,7 @@ export default function ContactPage() {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -56,7 +56,7 @@ export default function ContactPage() {
           {/* Contact Form */}
           <MotionDiv variants={itemVariants} className="bg-white rounded-lg shadow-sm p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h2>
-            
+
             {formStatus === 'success' ? (
               <div className="bg-green-50 p-6 rounded-lg text-center">
                 <svg className="w-12 h-12 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +82,7 @@ export default function ContactPage() {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email
@@ -98,7 +98,7 @@ export default function ContactPage() {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
                     Subject
@@ -113,7 +113,7 @@ export default function ContactPage() {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700">
                     Message
@@ -129,7 +129,7 @@ export default function ContactPage() {
                     ></textarea>
                   </div>
                 </div>
-                
+
                 <div>
                   <button
                     type="submit"
@@ -150,11 +150,11 @@ export default function ContactPage() {
               </form>
             )}
           </MotionDiv>
-          
+
           {/* Contact Info */}
           <MotionDiv variants={itemVariants} className="bg-gray-50 rounded-lg shadow-sm p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
-            
+
             <div className="space-y-8">
               <div className="flex">
                 <div className="flex-shrink-0">
@@ -171,7 +171,7 @@ export default function ContactPage() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex">
                 <div className="flex-shrink-0">
                   <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -187,7 +187,7 @@ export default function ContactPage() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex">
                 <div className="flex-shrink-0">
                   <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +204,7 @@ export default function ContactPage() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="pt-4">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Follow Us</h3>
                 <div className="flex space-x-4">

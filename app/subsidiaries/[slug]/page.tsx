@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { MotionSection, MotionDiv, MotionH1, MotionP } from '../../components/motion-components';
+import { MotionSection, MotionDiv, MotionH1, MotionP } from '../../components/shared/motion-components';
 import { Briefcase, PenTool, Lightbulb, BarChart, ArrowRight, Zap, Scaling, Infinity, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
 
