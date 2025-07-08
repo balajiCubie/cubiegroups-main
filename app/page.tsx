@@ -1,3 +1,4 @@
+"use client";
 import { Hero } from './components/home/Hero';
 import { Ecosystem } from './components/ecosystem/Ecosystem';
 import { Subsidiaries } from './components/home/Subsidiaries';

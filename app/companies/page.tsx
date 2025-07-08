@@ -26,6 +26,7 @@ const CompaniesPage: React.FC = () => {
     })).filter(sector => sector.companies.length > 0);
   }, [searchTerm]);
 
+
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-50'}`}>
       {/* Intro Section */}
