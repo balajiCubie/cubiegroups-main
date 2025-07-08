@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import EmployerVideo from '@/app/components/shared/careers/EmployerVideo';
 import EmployeeTestimonials from '@/app/components/shared/careers/EmployeeTestimonials';
