@@ -1,92 +1,41 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-type Theme = 'light' | 'dark';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface ThemeContextType {
-  theme: Theme;
+  theme: string;
   toggleTheme: () => void;
-  isDarkMode: boolean;
-  checkDarkMode: () => boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState('dark'); // Default to dark theme
 
   useEffect(() => {
-    setMounted(true);
-
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else if (prefersDark) {
-      setTheme('dark');
-    }
+    // You can add logic here to read theme from localStorage if needed
+    // For now, we'll just ensure the 'dark' class is on the html element
+    document.documentElement.classList.add('dark');
   }, []);
 
-  useEffect(() => {
-    if (mounted) {
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      localStorage.setItem('theme', theme);
-    }
-  }, [theme, mounted]);
-
-  const isDarkMode = theme === 'dark';
-
-  const checkDarkMode = (): boolean => {
-    if (!mounted) return false;
-    const htmlHasDarkClass = document.documentElement.classList.contains('dark');
-    const storedThemeIsDark = localStorage.getItem('theme') === 'dark';
-    return htmlHasDarkClass && storedThemeIsDark && isDarkMode;
-  };
-
   const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      if (mounted) {
-        localStorage.setItem('theme', newTheme);
-        document.documentElement.classList.toggle('dark', newTheme === 'dark');
-      }
-      return newTheme;
-    });
+    // In a dark-themed website, toggling might switch to a light theme
+    // or just adjust dark mode intensity. For now, it's a placeholder.
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+    document.documentElement.classList.toggle('dark');
   };
-
-  useEffect(() => {
-    if (!mounted) return;
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        const newTheme = e.matches ? 'dark' : 'light';
-        setTheme(newTheme);
-        document.documentElement.classList.toggle('dark', newTheme === 'dark');
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [mounted]);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDarkMode, checkDarkMode }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 
-export function useTheme() {
+export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
-}
+};

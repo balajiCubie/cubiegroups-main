@@ -10,24 +10,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        // Cubie Group colors
+        black: '#0B0F14',
+        white: '#FFFFFF',
+        silver: '#C0C0C0',
+        'finance-blue': '#007bff',
+        'neon-cyan': '#00FFFF',
+        // Using Cubie Group black as the default background
+        background: '#0B0F14',
+        foreground: '#FFFFFF', // Default foreground to white for dark theme
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: '#007bff', // Finance blue as primary
+          foreground: '#FFFFFF',
         },
-        accent1: 'hsl(var(--accent-1))',
-        accent2: 'hsl(var(--accent-2))',
-        accent3: 'hsl(var(--accent-3))',
-        // New brand colors
+        accent: {
+          DEFAULT: '#00FFFF', // Neon cyan as accent
+          1: 'hsl(var(--accent-1))',
+          2: 'hsl(var(--accent-2))',
+          3: 'hsl(var(--accent-3))',
+        },
         brand: {
-          primary: 'hsl(var(--brand-primary))',
-          secondary: 'hsl(var(--brand-secondary))',
-          tertiary: 'hsl(var(--brand-tertiary))',
+          primary: '#007bff',
+          secondary: '#00FFFF',
+          tertiary: '#C0C0C0',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+        sans: ['Inter', 'Satoshi', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+        bulletproof: ['Bulletproof', 'sans-serif'], // Add the new font family
       },
       animation: {
         'spin-slow': 'spin 10s linear infinite',

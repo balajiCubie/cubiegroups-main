@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bulletproof';
+  src: url('/bulletproof.bb.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Keyframes for subtle background animations */
 @keyframes pulse-slow {
   0%, 100% { opacity: 0.1; }
@@ -45,23 +53,17 @@
 
 /* Root CSS variables for dark theme */
 :root {
-  --background: 222.2 84% 4.9%; /* Dark background */
-  --foreground: 210 40% 98%; /* Light text */
-  --primary: 217.2 32.6% 17.5%; /* Darker primary for components */
-  --primary-foreground: 210 40% 98%; /* Light text on primary */
-
-  /* Neon Blue Gradient */
-  --neon-blue-start: 200 100% 50%; /* hsl(200, 100%, 50%) - #00c6ff */
-  --neon-blue-end: 220 100% 50%;   /* hsl(220, 100%, 50%) - #0072ff */
+  /* Neon Blue Gradient (using finance-blue and neon-cyan for consistency) */
+  --neon-blue-start: var(--neon-cyan);
+  --neon-blue-end: var(--finance-blue);
 
   /* Glassmorphism base color */
-  --glass-base: 210 40% 98%; /* Light color for transparency */
+  --glass-base: 0 0% 100%; /* White for transparency */
 }
 
+/* Base styles will be applied via Tailwind classes in layout.tsx */
 body {
-  font-family: 'Inter', sans-serif;
-  color: hsl(var(--foreground));
-  background: hsl(var(--background));
+  /* Remove direct font-family and color here, let Tailwind classes handle it */
 }
 
 @layer utilities {
