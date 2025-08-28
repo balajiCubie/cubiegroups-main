@@ -3,31 +3,29 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { IconType } from 'react-icons';
+import { FaChartPie, FaHandshake, FaWallet, FaFlask } from 'react-icons/fa'; // Specific icons for each platform
 
 interface PlatformCardProps {
   title: string;
   description: string;
-  icon?: string; // Placeholder for icon path
+  icon: IconType; // Use IconType for react-icons
   href: string;
+  delay: number;
 }
 
-const PlatformCard: React.FC<PlatformCardProps> = ({ title, description, icon, href }) => {
+const PlatformCard: React.FC<PlatformCardProps> = ({ title, description, icon: Icon, href, delay }) => {
   return (
     <motion.div
-      className="glassmorphism p-8 rounded-lg flex flex-col items-center text-center hover:border-finance-blue transition-all duration-300"
+      className="glassmorphism p-8 rounded-lg flex flex-col items-center text-center hover:border-neon-cyan transition-all duration-300"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.6, delay }}
     >
-      {icon && (
-        <div className="mb-4">
-          {/* Placeholder for actual icon */}
-          <div className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center text-black text-3xl font-bold">
-            {title.charAt(0)}
-          </div>
-        </div>
-      )}
+      <div className="mb-4">
+        <Icon className="text-neon-cyan text-5xl" />
+      </div>
       <h3 className="text-2xl font-bold mb-2 text-white">{title}</h3>
       <p className="text-silver mb-4">{description}</p>
       <Link href={href} className="text-finance-blue hover:text-neon-cyan font-semibold flex items-center">
@@ -44,22 +42,26 @@ const Platforms: React.FC = () => {
   const platformData = [
     {
       title: "Valuation SaaS",
-      description: "AI-driven valuations for deals, assets, and funds.",
+      description: "Smart valuations for real-time insights and strategic decision-making.",
+      icon: FaChartPie,
       href: "/platforms/valuation-saas",
     },
     {
       title: "M&A Advisory SaaS",
-      description: "Smart deal execution powered by AI insights.",
+      description: "Streamlined deal execution with insights, from target identification to closing.",
+      icon: FaHandshake,
       href: "/platforms/m-a-advisory-saas",
     },
     {
       title: "Asset Management SaaS",
-      description: "Manage capital and returns at enterprise scale.",
+      description: "Comprehensive capital growth and portfolio management solutions for institutional investors.",
+      icon: FaWallet,
       href: "/platforms/asset-management-saas",
     },
     {
-      title: "R&D Hub",
-      description: "Reinvestment, innovation, and strategic growth engine.",
+      title: "R&D & Innovation Hub",
+      description: "Driving future finance engineering through reinvestment, strategic acquisitions, and research.",
+      icon: FaFlask,
       href: "/platforms/r-d-hub",
     },
   ];
@@ -78,7 +80,7 @@ const Platforms: React.FC = () => {
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {platformData.map((platform, index) => (
-            <PlatformCard key={index} {...platform} />
+            <PlatformCard key={index} {...platform} delay={index * 0.1} />
           ))}
         </div>
       </div>
